@@ -1,0 +1,37 @@
+name: Podcast Automation
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Runs daily at 6am UTC
+  workflow_dispatch:  # Allows manual trigger
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Restore token cache
+        uses: actions/cache@v3
+        with:
+          path: ms_token_cache.json
+          key: ms-token-cache
+
+      - name: Run script
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python podcast_automation.py
+
+      - name: Save token cache
+        uses: actions/cache@v3
+        with:
+          path: ms_token_cache.json
+          key: ms-token-cache
