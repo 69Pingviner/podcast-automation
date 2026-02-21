@@ -11,7 +11,7 @@ from msal import PublicClientApplication
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
 NOTIFICATION_EMAIL = "jacobmichaelsen@gmail.com"
 ONENOTE_NOTEBOOK = "AI integration"
-MIN_DURATION_SECONDS = 2700  # 45 minutes
+MIN_DURATION_SECONDS = 600  # 10 minutes
 
 YOUTUBE_CHANNELS = [
     {
