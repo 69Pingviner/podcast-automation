@@ -70,9 +70,10 @@ def get_youtube_videos(channel_id):
 
 def get_transcript(video_id):
     try:
-        transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
-        full_text = " ".join([t["text"] for t in transcript_list])
-        duration = transcript_list[-1]["start"] + transcript_list[-1]["duration"]
+        ytt_api = YouTubeTranscriptApi()
+        transcript_list = ytt_api.fetch(video_id)
+        full_text = " ".join([t.text for t in transcript_list])
+        duration = transcript_list[-1].start + transcript_list[-1].duration
         return full_text, duration
     except Exception as e:
         print(f"Could not get transcript: {e}")
